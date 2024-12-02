@@ -53,8 +53,6 @@ class Star1Command extends Command
 
         echo($total);
 
-
-
         return Command::SUCCESS;
     }
 

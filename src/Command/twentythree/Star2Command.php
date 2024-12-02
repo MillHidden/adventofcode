@@ -47,8 +47,6 @@ class Star2Command extends Command
 
         echo($total);
 
-
-
         return Command::SUCCESS;
     }
 
