@@ -65,7 +65,6 @@ class Star62Command extends Command
         $maxWidth = count($grid[0]);
         $turns = 0;
         $total = 0;
-        $step = 0;
         $posObstructions = [];
         while ($this->isInGrid($nextPos = $this->computeNextPos($pos, $direction), $maxHeigth, $maxWidth)) {
             if ($turns === 4) {
@@ -85,7 +84,6 @@ class Star62Command extends Command
 
                 $testGrid[$nextPos[0]][$nextPos[1]] = self::OBSTRUCTION;
 
-                echo 'test step #'.$step.PHP_EOL;
                 if ($this->isLoop($pos, $testGrid, $this->computeNextDirection($direction), $maxHeigth, $maxWidth, $path)) {
                     $total++;
                 }
@@ -95,7 +93,6 @@ class Star62Command extends Command
             $pos = $nextPos;
             
             $turns = 0;
-            $step++;
         }
 
         echo $total;
