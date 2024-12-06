@@ -9,11 +9,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
-    name: '24-star21',
+    name: '24-star31',
     description: '',
     hidden: false
 )]
-class Star21Command extends Command
+class Star31Command extends Command
 {
 
     protected function configure(): void
@@ -30,45 +30,31 @@ class Star21Command extends Command
 
         $handle = fopen($input->getArgument('input'), "r");
 
-        $safeLines = 0;
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
-                if ($this->isSafe($line)) {
-                    $safeLines++;
-                }
+                $total += $this->findPattern($line);              
             }
 
             fclose($handle);
         }
 
-        echo($safeLines);
+        echo $total;
 
         return Command::SUCCESS;
     }
 
-    protected function isSafe(string $line): bool
+    protected function findPattern(string $line): int
     {
-        $levels = explode(' ', $line);
-        $variation = null;
+        // mul(X,Y)
+        // X and Y are each 1-3 digit
+        preg_match_all('/mul\((?<number_1>\d{1,3}),(?<number_2>\d{1,3})\)/', $line, $matches);
 
-        for ($i = 0; $i < count($levels) - 1; $i++) {
-            $newVariation = $levels[$i+1] - $levels[$i];
+        $mul = 0;
 
-            if ($newVariation === 0) {
-                return false;
-            }
-
-            if ((abs($newVariation)) > 3) {
-                return false;
-            }
-
-            if (!is_null($variation) && $variation*$newVariation < 0) {
-                return false;
-            }
-
-            $variation = $newVariation;
+        foreach (array_keys($matches['number_1']) as $pos) {
+            $mul += $matches['number_1'][$pos] * $matches['number_2'][$pos];
         }
 
-        return true;
+        return $mul;
     }
 }
