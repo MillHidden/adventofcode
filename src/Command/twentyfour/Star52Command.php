@@ -56,7 +56,6 @@ class Star52Command extends Command
                     }
 
                     do {
-                        var_dump($update, $pageMissPlaced);
                         $update = $this->putPageAtTheEnd($update, $pageMissPlaced);
                     } while (!is_null($pageMissPlaced = $this->findMissplacedPage($update, $invalidRules)));
                         

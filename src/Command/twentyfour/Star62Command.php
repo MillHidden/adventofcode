@@ -85,6 +85,7 @@ class Star62Command extends Command
 
                 $testGrid[$nextPos[0]][$nextPos[1]] = self::OBSTRUCTION;
 
+                echo 'test step #'.$step.PHP_EOL;
                 if ($this->isLoop($pos, $testGrid, $this->computeNextDirection($direction), $maxHeigth, $maxWidth, $path)) {
                     $total++;
                 }
